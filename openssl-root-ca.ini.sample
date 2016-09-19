@@ -1,0 +1,92 @@
+# Licensed to the Symphony Software Foundation (SSF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The SSF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+#
+# OpenSSL configuration file.
+#
+
+# Establish working directory.
+
+dir					= .
+
+[ ca ]
+default_ca				= CA_default
+
+[ CA_default ]
+serial					= $dir/certs/serial
+database				= $dir/certs/certindex.txt
+new_certs_dir			= $dir/certs
+certificate				= $dir/root/ca_signing_cert.pem
+private_key				= $dir/root/ca_signing_key.pem
+default_days			= 730
+default_md				= sha512
+preserve				= no
+email_in_dn				= no
+nameopt					= default_ca
+certopt					= default_ca
+policy					= policy_match
+
+[ policy_match ]
+countryName				= match
+stateOrProvinceName		= match
+organizationName		= match
+organizationalUnitName	= optional
+commonName				= supplied
+emailAddress			= optional
+
+[ req ]
+default_bits			= 4096			# Size of keys
+default_keyfile			= key.pem		# name of generated keys
+default_md				= sha512		# message digest algorithm
+string_mask				= nombstr		# permitted characters
+distinguished_name		= req_distinguished_name
+req_extensions			= v3_req
+
+[ req_distinguished_name ]
+# Variable name				Prompt string
+#-------------------------	  ----------------------------------
+commonName					= Common Name (hostname, IP, or your name)
+commonName_max				= 64
+0.organizationName			= Organization Name (company)
+organizationalUnitName		= Organizational Unit Name (department, division)
+emailAddress				= Email Address
+emailAddress_max			= 40
+localityName				= Locality Name (city, district)
+stateOrProvinceName			= State or Province Name (full name)
+countryName					= Country Name (2 letter code)
+countryName_max				= 2
+
+
+# Default values for the above, for consistency and less typing.
+# Variable name				Value
+#------------------------	  ------------------------------
+commonName_default = Symphony Bot Signing Certificate
+0.organizationName_default = My Company, Inc.
+organizationalUnitName_default =
+emailAddress_default =
+localityName_default = NY
+stateOrProvinceName_default = NY
+countryName_default = US
+
+[ v3_ca ]
+basicConstraints			= CA:TRUE
+subjectKeyIdentifier		= hash
+authorityKeyIdentifier		= keyid:always,issuer:always
+
+[ v3_req ]
+basicConstraints			= CA:FALSE
+subjectKeyIdentifier		= hash
