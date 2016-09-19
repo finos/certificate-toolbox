@@ -20,7 +20,7 @@
 echo `date`
 echo "*********************************************************************"
 echo "**                                                                 **"
-echo "**          Create a Root CA Signing Certificate to import         **"
+echo "**          Create a PKI (Root CA) Signing Certificate to import   **"
 echo "**          on a Symphony Pod and authenticate Symphony bots       **"
 echo "**                                                                 **"
 echo "*********************************************************************"
