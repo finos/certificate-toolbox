@@ -37,7 +37,10 @@ Simply run the script and follow the instructions
 $ ./create-user-cert.sh <Service Account Username>
 ```
 
-The generated X.509 Certificate can be found in `./users/<Service Account Username>.p12`.
+The script will generate the following files in the `./user` folder:
+- `user/<Service Account Username>-cert.p12` - X.509 User Identity Certificate; password is the one passed to the script
+- `user/<Service Account Username>-key.pem` - RSA Key; password is not set; to specify it, please run `openssl rsa-in user/project.<bot-name>-key.pem -out user/<bot-name>.key.pem -des3`
+- `user/<Service Account Username>-cert.pem`
 
 #### The certs folder
 The first time you run the `create-user-cert.sh` script, a `certs` folder is created in the project root, which contains:
