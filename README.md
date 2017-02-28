@@ -39,7 +39,7 @@ $ ./create-user-cert.sh <Service Account Username>
 
 The script will generate the following files in the `./user` folder:
 - `user/<Service Account Username>-cert.p12` - X.509 User Identity Certificate; password is the one passed to the script
-- `user/<Service Account Username>-key.pem` - RSA Key; password is not set; to specify it, please run `openssl rsa-in user/project.<bot-name>-key.pem -out user/<bot-name>.key.pem -des3`
+- `user/<Service Account Username>-key.pem` - RSA Key; password is not set; check below in the common commands how change it
 - `user/<Service Account Username>-cert.pem`
 
 #### The certs folder
@@ -72,4 +72,32 @@ To speed things up when generating the certificates, you can change the OpenSSL 
 81: localityName_default = NY
 82: stateOrProvinceName_default = NY
 83: countryName_default = US
+```
+
+# Common commands
+Below is a collection of useful commands that I happened to need often when dealing with certificates.
+
+## Setup password to private key
+```
+openssl rsa -in user/<file-name>.pem -out user/<file-name>-new.pem -des3
+```
+
+## Validate a PKCS12 password
+```
+openssl pkcs12 -info -in <file-name>.p12
+```
+
+## Change a PKCS12 password
+```
+# Create a password-less certificate
+pkcs12 -in $FILE_NAME -out $FILE_NAME-pwdfree -nodes
+
+# Set a new password
+openssl pkcs12 -export -in $FILE_NAME-pwdfree -out $FILE_NAME-new
+
+# Delete old certificate file
+rm -f $FILE_NAME $FILE_NAME-pwdfree
+
+# Restore certificate file name
+mv $FILE_NAME-new $FILE_NAME
 ```
