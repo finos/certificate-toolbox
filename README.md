@@ -90,7 +90,7 @@ openssl pkcs12 -info -in <file-name>.p12
 ## Change a PKCS12 password
 ```
 # Create a password-less certificate
-pkcs12 -in $FILE_NAME -out $FILE_NAME-pwdfree -nodes
+openssl pkcs12 -in $FILE_NAME -out $FILE_NAME-pwdfree -nodes
 
 # Set a new password
 openssl pkcs12 -export -in $FILE_NAME-pwdfree -out $FILE_NAME-new
