@@ -26,6 +26,7 @@ $ ./create-root-ca-cert.sh
 The generated PKI signing certificate can be found in `root/ca_signing_cert.pem` and is ready to be imported via the Symphony Pod Admin Console; the `certs` folder will include a `serial` file to increment the IDs used to store the certificates.
 
 If you need to re-run the script, you must either
+
 1. delete the `./root` folder (the scripts won't allow you to override them)
 2. move (and backup) `./root` and `./certs` folders and rerun the script; if you are interested to generate multiple Root CA Certificates, check how to configure OpenSSL default values (below)
 
