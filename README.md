@@ -17,6 +17,13 @@ Before moving forward, make sure you have [OpenSSL](https://www.openssl.org/) in
 
 If not installed, choose your preferred package system to install it, otherwise [check the openssl wiki third-party binaries](https://wiki.openssl.org/index.php/Binaries)
 
+The following scripts will generate the signing and user certificates; the default duration of the certificates is 10 years (3650 days), but it can be overridden simply running the following command before starting:
+
+```
+export DURATION_IN_DAYS=14
+```
+This command will set the duration to 2 weeks (14 days).
+
 ### Generating a PKI (Root CA) Signing Certificate
 Simply run the script and follow the instructions
 ```

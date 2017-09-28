@@ -17,6 +17,8 @@
 # specific language governing permissions and limitations
 # under the License.
 
+
+
 echo `date`
 echo "*********************************************************************"
 echo "**                                                                 **"
@@ -26,6 +28,12 @@ echo "**                                                                 **"
 echo "*********************************************************************"
 
 mkdir -p ./root
+
+if [ -z "$DURATION_IN_DAYS" ]; then
+  	DURATION_IN_DAYS=3650
+else
+	echo "NOTE! Overriding DURATION_IN_DAYS with $DURATION_IN_DAYS"
+fi
 
 if [ -f openssl-root-ca.ini ]; then
   echo "Found openssl-root-ca.ini file"
@@ -47,8 +55,8 @@ if [ -f ./root/ca_signing_key.pem ]; then
 		echo "back up and/or delete before continuing"
 		exit -1
 fi
-echo 'Running: openssl req -new -x509 -extensions v3_ca -keyout root/ca_signing_key.pem -out root/ca_signing_cert.pem -days 3650 -config ./openssl-root-ca.ini'
-openssl req -new -x509 -extensions v3_ca -keyout root/ca_signing_key.pem -out root/ca_signing_cert.pem -days 3650 -config ./openssl-root-ca.ini
+echo 'Running: openssl req -new -x509 -extensions v3_ca -keyout root/ca_signing_key.pem -out root/ca_signing_cert.pem -days ${DURATION_IN_DAYS} -config ./openssl-root-ca.ini'
+openssl req -new -x509 -extensions v3_ca -keyout root/ca_signing_key.pem -out root/ca_signing_cert.pem -days ${DURATION_IN_DAYS} -config ./openssl-root-ca.ini
 
 if [ -f ./root/ca_signing_key.pem ]; then
 		echo "SUCCESS!"

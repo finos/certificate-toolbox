@@ -25,6 +25,12 @@ echo "**          for a Symphony Bot                                     **"
 echo "**                                                                 **"
 echo "*********************************************************************"
 
+if [ -z "$DURATION_IN_DAYS" ]; then
+  	DURATION_IN_DAYS=3650
+else
+	echo "NOTE! Overriding DURATION_IN_DAYS with $DURATION_IN_DAYS"
+fi
+
 mkdir -p ./users
 
 if [ -f openssl-user.ini ]; then
@@ -45,11 +51,11 @@ if [ -z "$1" ]; then
 	echo "ERROR: Please specify the certificate filename on the command line such as 'make-user-cert.sh botuser1'"
 	exit -1
 else
-	echo "Running: openssl req -new -nodes -out users/$1-req.pem -keyout users/$1-key.pem -days 3650 -config ./openssl-user.ini"
-	openssl req -new -nodes -out users/$1-req.pem -keyout users/$1-key.pem -days 3650 -config ./openssl-user.ini
+	echo "Running: openssl req -new -nodes -out users/$1-req.pem -keyout users/$1-key.pem -days ${DURATION_IN_DAYS} -config ./openssl-user.ini"
+	openssl req -new -nodes -out users/$1-req.pem -keyout users/$1-key.pem -days ${DURATION_IN_DAYS} -config ./openssl-user.ini
 
-	echo "Running: openssl ca -out users/$1-cert.pem -days 3650 -config ./openssl-user.ini -infiles users/$1-req.pem"
-	openssl ca -out users/$1-cert.pem -days 3650 -config ./openssl-user.ini -infiles users/$1-req.pem
+	echo "Running: openssl ca -out users/$1-cert.pem -days ${DURATION_IN_DAYS} -config ./openssl-user.ini -infiles users/$1-req.pem"
+	openssl ca -out users/$1-cert.pem -days ${DURATION_IN_DAYS} -config ./openssl-user.ini -infiles users/$1-req.pem
 
 	echo "Running: openssl pkcs12 -export -in users/$1-cert.pem -inkey users/$1-key.pem -certfile root/ca_signing_cert.pem -name $1 -out users/$1-cert.p12"
 	openssl pkcs12 -export -in users/$1-cert.pem -inkey users/$1-key.pem -certfile root/ca_signing_cert.pem -name $1 -out users/$1-cert.p12
