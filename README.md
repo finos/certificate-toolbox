@@ -1,3 +1,6 @@
+| NOTE! This project is not active anymore, therefore marked as ARCHIVED; if you're interested to become the maintener of this project, open an issue or email help@finos.org . |
+| --- |
+
 # Certificate Toolbox
 A collection of command-line tools to generate _*PKI Signing Certificates*_ and _*X.509 Identity Certificates*_ used to configure a Symphony Pod and generate Service Account (cert-based) credentials.
 
